@@ -1,24 +1,731 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kostasyifa</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kosan Asri — Dekat IPB University</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --dark: #1A1A0E;
+    --green: #2D5016;
+    --green-light: #4A7C2A;
+    --green-soft: #E8F0DC;
+    --gold: #C8A84B;
+    --gold-light: #F0DFA0;
+    --text-muted: #6B6B55;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 48px;
+    background: rgba(245,240,232,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(45,80,22,0.1);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--green);
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 0.88rem; font-weight: 500;
+    color: var(--text-muted); letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-wa {
+    background: var(--green); color: var(--white);
+    padding: 10px 22px; border-radius: 50px;
+    text-decoration: none; font-size: 0.85rem; font-weight: 500;
+    transition: background 0.2s, transform 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-wa:hover { background: var(--green-light); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 100px 48px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; right: -80px; top: 10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(74,124,42,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; left: -60px; bottom: 10%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(200,168,75,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-text { max-width: 520px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green-soft); color: var(--green);
+    padding: 6px 16px; border-radius: 50px;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .hero-tag::before { content: '●'; font-size: 0.5rem; animation: blink 1.5s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 900; line-height: 1.05;
+    color: var(--dark); margin-bottom: 20px;
+  }
+  .hero h1 em { color: var(--green); font-style: normal; }
+  .hero p {
+    font-size: 1rem; color: var(--text-muted);
+    line-height: 1.7; margin-bottom: 36px; max-width: 400px;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--green); color: var(--white);
+    padding: 14px 32px; border-radius: 50px;
+    text-decoration: none; font-weight: 500; font-size: 0.95rem;
+    transition: all 0.25s; box-shadow: 0 4px 20px rgba(45,80,22,0.3);
+  }
+  .btn-primary:hover { background: var(--green-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(45,80,22,0.4); }
+  .btn-outline {
+    border: 1.5px solid var(--green); color: var(--green);
+    padding: 14px 32px; border-radius: 50px;
+    text-decoration: none; font-weight: 500; font-size: 0.95rem;
+    transition: all 0.25s;
+  }
+  .btn-outline:hover { background: var(--green); color: white; transform: translateY(-2px); }
+
+  .hero-right {
+    position: relative; display: flex;
+    justify-content: center; align-items: center;
+  }
+  .hero-card-stack { position: relative; width: 360px; height: 420px; }
+  .hero-card-bg {
+    position: absolute; width: 300px; height: 360px;
+    background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+    border-radius: 24px; top: 30px; right: 0;
+    opacity: 0.15;
+  }
+  .hero-card-main {
+    position: absolute; width: 300px; height: 360px;
+    background: var(--white); border-radius: 24px;
+    top: 0; left: 0;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  .hero-card-img {
+    width: 100%; height: 200px;
+    background: linear-gradient(145deg, #2D5016, #4A7C2A, #6B9E3A);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-card-img-icon { font-size: 4rem; opacity: 0.6; }
+  .hero-card-badge {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--gold); color: var(--dark);
+    padding: 4px 12px; border-radius: 50px;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px;
+  }
+  .hero-card-body { padding: 20px; flex: 1; }
+  .hero-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;
+  }
+  .hero-card-loc {
+    font-size: 0.8rem; color: var(--text-muted);
+    display: flex; align-items: center; gap: 6px; margin-bottom: 14px;
+  }
+  .hero-stats {
+    display: flex; gap: 16px;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; color: var(--green);
+  }
+  .hero-stat-lbl { font-size: 0.7rem; color: var(--text-muted); }
+
+  /* ── STATS STRIP ── */
+  .stats-strip {
+    background: var(--green); color: var(--white);
+    display: flex; justify-content: center;
+    gap: 64px; padding: 28px 48px;
+    flex-wrap: wrap;
+  }
+  .strip-item { text-align: center; }
+  .strip-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900;
+  }
+  .strip-lbl { font-size: 0.8rem; opacity: 0.75; letter-spacing: 0.5px; }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 80px 48px; }
+  .section-tag {
+    display: inline-block; background: var(--green-soft); color: var(--green);
+    padding: 4px 14px; border-radius: 50px;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 900; color: var(--dark); margin-bottom: 12px;
+    line-height: 1.15;
+  }
+  .section-sub { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; max-width: 500px; }
+
+  /* ── ROOM AVAILABILITY ── */
+  #kamar { background: var(--cream); }
+  .rooms-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; }
+
+  .filter-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+  .filter-tab {
+    padding: 8px 20px; border-radius: 50px;
+    border: 1.5px solid #D5D0C4; background: transparent;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-size: 0.83rem; font-weight: 500; color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .filter-tab.active, .filter-tab:hover {
+    background: var(--green); color: white; border-color: var(--green);
+  }
+
+  .rooms-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .room-card {
+    background: var(--white); border-radius: 20px;
+    overflow: hidden; box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+  .room-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+  .room-card.unavailable { opacity: 0.65; }
+
+  .room-img {
+    height: 160px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; font-size: 3rem;
+  }
+  .room-img.type-standard { background: linear-gradient(135deg, #C8E6C9, #A5D6A7); }
+  .room-img.type-ac { background: linear-gradient(135deg, #B3E5FC, #81D4FA); }
+  .room-img.type-km { background: linear-gradient(135deg, #FFE0B2, #FFCC80); }
+
+  .room-status-badge {
+    position: absolute; top: 12px; left: 12px;
+    padding: 4px 12px; border-radius: 50px;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px;
+  }
+  .badge-available { background: #22C55E; color: white; }
+  .badge-unavailable { background: #EF4444; color: white; }
+
+  .room-body { padding: 18px 20px; }
+  .room-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;
+  }
+  .room-type { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 14px; }
+  .room-features {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
+  }
+  .feat-tag {
+    background: var(--green-soft); color: var(--green);
+    padding: 3px 10px; border-radius: 50px;
+    font-size: 0.72rem; font-weight: 500;
+  }
+  .room-price {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .price-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; font-weight: 700; color: var(--green);
+  }
+  .price-period { font-size: 0.72rem; color: var(--text-muted); }
+  .room-cta {
+    padding: 8px 18px; border-radius: 50px;
+    font-size: 0.8rem; font-weight: 600;
+    cursor: pointer; border: none; font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .cta-book {
+    background: var(--green); color: white;
+  }
+  .cta-book:hover { background: var(--green-light); }
+  .cta-full {
+    background: #F1F0EA; color: var(--text-muted);
+    cursor: not-allowed;
+  }
+
+  /* ── FACILITIES ── */
+  #fasilitas { background: var(--dark); color: var(--white); }
+  #fasilitas .section-tag { background: rgba(74,124,42,0.25); color: #7DC848; }
+  #fasilitas .section-title { color: var(--white); }
+  #fasilitas .section-sub { color: rgba(255,255,255,0.55); }
+
+  .fac-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px; margin-top: 40px;
+  }
+  .fac-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px; padding: 24px 20px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .fac-item:hover { background: rgba(74,124,42,0.2); transform: translateY(-3px); }
+  .fac-icon { font-size: 2rem; margin-bottom: 12px; }
+  .fac-name { font-size: 0.9rem; font-weight: 500; color: var(--white); }
+  .fac-desc { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-top: 4px; }
+
+  /* ── LOCATION ── */
+  #lokasi { background: var(--cream); }
+  .loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; margin-top: 40px; }
+  .loc-map {
+    height: 340px; border-radius: 20px; overflow: hidden;
+    background: linear-gradient(135deg, #C8E6C9, #E8F0DC);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; border: 1px solid rgba(45,80,22,0.1);
+    position: relative;
+  }
+  .loc-map-label {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: var(--white); border-radius: 50px; padding: 8px 20px;
+    font-size: 0.82rem; font-weight: 500; color: var(--dark);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    white-space: nowrap;
+  }
+  .loc-points { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .loc-point {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 14px 16px; background: var(--white);
+    border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .loc-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--green-soft); display: flex; align-items: center;
+    justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+  }
+  .loc-name { font-size: 0.88rem; font-weight: 600; color: var(--dark); }
+  .loc-dist { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+  /* ── CONTACT / WA ── */
+  #kontak {
+    background: linear-gradient(135deg, var(--green) 0%, #1E3A0A 100%);
+    color: var(--white); text-align: center;
+  }
+  #kontak .section-title { color: var(--white); }
+  #kontak .section-sub { color: rgba(255,255,255,0.65); margin: 0 auto 40px; }
+
+  .wa-card {
+    max-width: 480px; margin: 0 auto;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 24px; padding: 36px;
+    backdrop-filter: blur(8px);
+  }
+  .wa-icon { font-size: 3.5rem; margin-bottom: 16px; }
+  .wa-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; margin-bottom: 8px;
+  }
+  .wa-desc { font-size: 0.88rem; color: rgba(255,255,255,0.6); margin-bottom: 28px; line-height: 1.6; }
+  .wa-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: #25D366; color: white;
+    padding: 16px 36px; border-radius: 50px;
+    text-decoration: none; font-weight: 700; font-size: 1rem;
+    transition: all 0.25s; box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+  }
+  .wa-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(37,211,102,0.55); background: #20bd59; }
+  .wa-note { margin-top: 16px; font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark); color: rgba(255,255,255,0.45);
+    text-align: center; padding: 24px 48px;
+    font-size: 0.82rem;
+  }
+  footer span { color: var(--gold); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5); z-index: 999;
+    align-items: center; justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--white); border-radius: 24px;
+    padding: 36px; max-width: 420px; width: 90%;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+    animation: pop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes pop { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700; margin-bottom: 6px;
+  }
+  .modal-sub { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; }
+  .modal-detail {
+    background: var(--green-soft); border-radius: 14px;
+    padding: 16px 18px; margin-bottom: 20px;
+    display: flex; gap: 14px; align-items: center;
+  }
+  .modal-detail-icon { font-size: 2rem; }
+  .modal-detail-name { font-weight: 700; font-size: 1rem; color: var(--green); }
+  .modal-detail-info { font-size: 0.8rem; color: var(--text-muted); }
+  .modal-field { margin-bottom: 16px; }
+  .modal-label { font-size: 0.8rem; font-weight: 600; color: var(--dark); margin-bottom: 6px; display: block; }
+  .modal-input {
+    width: 100%; padding: 10px 14px; border-radius: 10px;
+    border: 1.5px solid #E0DDD5; font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; color: var(--dark);
+    outline: none; transition: border 0.2s;
+  }
+  .modal-input:focus { border-color: var(--green); }
+  .modal-actions { display: flex; gap: 12px; }
+  .modal-cancel {
+    flex: 1; padding: 12px; border-radius: 50px;
+    border: 1.5px solid #E0DDD5; background: transparent;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .modal-cancel:hover { border-color: var(--dark); color: var(--dark); }
+  .modal-submit {
+    flex: 2; padding: 12px; border-radius: 50px;
+    border: none; background: #25D366; color: white;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; font-weight: 700;
+    transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .modal-submit:hover { background: #20bd59; transform: translateY(-1px); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 100px 20px 40px; text-align: center; gap: 40px; }
+    .hero p { margin: 0 auto 36px; }
+    .hero-btns { justify-content: center; }
+    .hero-right { display: none; }
+    section { padding: 60px 20px; }
+    .rooms-header { flex-direction: column; align-items: flex-start; }
+    .loc-grid { grid-template-columns: 1fr; }
+    .stats-strip { gap: 32px; padding: 20px; }
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
 </head>
 <body>
-    <h1>Selamat Datang di Kostasyifa!</h1>
-    <p>Website sedang dalam pengembangan.</p>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Kosan<span>Asri</span></div>
+  <ul class="nav-links">
+    <li><a href="#kamar">Kamar</a></li>
+    <li><a href="#fasilitas">Fasilitas</a></li>
+    <li><a href="#lokasi">Lokasi</a></li>
+    <li><a href="#kontak">Kontak</a></li>
+  </ul>
+  <a href="#kontak" class="nav-wa">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Chat WA
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-tag">Dekat IPB University</div>
+    <h1>Kosan <em>Nyaman</em><br>Harga Bersahabat</h1>
+    <p>Tempat tinggal ideal untuk mahasiswa IPB. Fasilitas lengkap, suasana tenang, dan lokasi strategis — semua yang kamu butuhkan selama masa studi.</p>
+    <div class="hero-btns">
+      <a href="#kamar" class="btn-primary">Cek Ketersediaan</a>
+      <a href="#fasilitas" class="btn-outline">Lihat Fasilitas</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card-stack">
+      <div class="hero-card-bg"></div>
+      <div class="hero-card-main">
+        <div class="hero-card-img">
+          <span class="hero-card-img-icon">🏠</span>
+          <div class="hero-card-badge">TERSEDIA</div>
+        </div>
+        <div class="hero-card-body">
+          <div class="hero-card-title">Kosan Asri IPB</div>
+          <div class="hero-card-loc">📍 Jl. Babakan Raya, Dramaga</div>
+          <div class="hero-stats">
+            <div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-lbl">Kamar Total</div></div>
+            <div class="hero-stat"><div class="hero-stat-num">3</div><div class="hero-stat-lbl">Tersedia</div></div>
+            <div class="hero-stat"><div class="hero-stat-num">5★</div><div class="hero-stat-lbl">Rating</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="strip-item"><div class="strip-num">8</div><div class="strip-lbl">Total Kamar</div></div>
+  <div class="strip-item"><div class="strip-num">500m</div><div class="strip-lbl">Dari Gerbang IPB</div></div>
+  <div class="strip-item"><div class="strip-num">3+</div><div class="strip-lbl">Tipe Kamar</div></div>
+  <div class="strip-item"><div class="strip-num">24/7</div><div class="strip-lbl">Keamanan</div></div>
+</div>
+
+<!-- KAMAR -->
+<section id="kamar">
+  <div class="rooms-header fade-up">
+    <div>
+      <div class="section-tag">Ketersediaan Kamar</div>
+      <h2 class="section-title">Pilih Kamar<br>Sesuai Kebutuhan</h2>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterRooms('semua')">Semua</button>
+      <button class="filter-tab" onclick="filterRooms('tersedia')">Tersedia</button>
+      <button class="filter-tab" onclick="filterRooms('standar')">Standar</button>
+      <button class="filter-tab" onclick="filterRooms('ac')">AC</button>
+      <button class="filter-tab" onclick="filterRooms('km')">Kamar Mandi Dalam</button>
+    </div>
+  </div>
+
+  <div class="rooms-grid" id="roomsGrid"></div>
+</section>
+
+<!-- FASILITAS -->
+<section id="fasilitas">
+  <div class="fade-up">
+    <div class="section-tag">Yang Kami Sediakan</div>
+    <h2 class="section-title">Fasilitas Lengkap<br>untuk Kenyamananmu</h2>
+    <p class="section-sub">Semua yang kamu butuhkan sudah tersedia. Fokus belajar, biarkan kami urus sisanya.</p>
+  </div>
+  <div class="fac-grid fade-up">
+    <div class="fac-item"><div class="fac-icon">📶</div><div class="fac-name">WiFi Cepat</div><div class="fac-desc">Koneksi stabil 24/7</div></div>
+    <div class="fac-item"><div class="fac-icon">🅿️</div><div class="fac-name">Parkir Motor</div><div class="fac-desc">Area parkir luas & aman</div></div>
+    <div class="fac-item"><div class="fac-icon">🫧</div><div class="fac-name">Laundry</div><div class="fac-desc">Mesin cuci tersedia</div></div>
+    <div class="fac-item"><div class="fac-icon">🔒</div><div class="fac-name">Keamanan 24/7</div><div class="fac-desc">CCTV & penjaga malam</div></div>
+    <div class="fac-item"><div class="fac-icon">🌿</div><div class="fac-name">Taman Kecil</div><div class="fac-desc">Area bersantai outdoor</div></div>
+    <div class="fac-item"><div class="fac-icon">🍳</div><div class="fac-name">Dapur Bersama</div><div class="fac-desc">Kompor & peralatan masak</div></div>
+    <div class="fac-item"><div class="fac-icon">🪣</div><div class="fac-name">Air Bersih</div><div class="fac-desc">Sumber air berkualitas</div></div>
+    <div class="fac-item"><div class="fac-icon">🔌</div><div class="fac-name">Listrik Token</div><div class="fac-desc">Meteran pribadi per kamar</div></div>
+  </div>
+</section>
+
+<!-- LOKASI -->
+<section id="lokasi">
+  <div class="fade-up">
+    <div class="section-tag">Lokasi Strategis</div>
+    <h2 class="section-title">Dekat Semua<br>yang Kamu Butuhkan</h2>
+  </div>
+  <div class="loc-grid fade-up">
+    <div class="loc-map">
+      🗺️
+      <div class="loc-map-label">📍 Jl. Babakan Raya, Dramaga, Bogor</div>
+    </div>
+    <ul class="loc-points">
+      <li class="loc-point"><div class="loc-icon">🎓</div><div><div class="loc-name">Gerbang IPB Dramaga</div><div class="loc-dist">± 500 meter · 7 menit jalan kaki</div></div></li>
+      <li class="loc-point"><div class="loc-icon">🛒</div><div><div class="loc-name">Alfamart / Indomaret</div><div class="loc-dist">± 200 meter · 3 menit jalan kaki</div></div></li>
+      <li class="loc-point"><div class="loc-icon">🍜</div><div><div class="loc-name">Warung & Warnet</div><div class="loc-dist">± 100 meter · sekitar kosan</div></div></li>
+      <li class="loc-point"><div class="loc-icon">🚌</div><div><div class="loc-name">Halte Angkot / Ojol</div><div class="loc-dist">± 50 meter · depan jalan</div></div></li>
+      <li class="loc-point"><div class="loc-icon">🏥</div><div><div class="loc-name">Klinik / Apotek</div><div class="loc-dist">± 800 meter · 10 menit</div></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- KONTAK / WA -->
+<section id="kontak">
+  <div class="section-tag" style="background:rgba(255,255,255,0.15);color:white;">Hubungi Kami</div>
+  <h2 class="section-title">Ada Pertanyaan?<br>Chat Langsung!</h2>
+  <p class="section-sub">Kami siap membantu kamu menemukan kamar yang tepat. Respon cepat, ramah, dan informatif.</p>
+  <div class="wa-card fade-up">
+    <div class="wa-icon">💬</div>
+    <div class="wa-title">Hubungi via WhatsApp</div>
+    <div class="wa-desc">Tanya soal harga, ketersediaan, atau jadwalkan kunjungan langsung. Kami biasanya balas dalam hitungan menit!</div>
+    <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20kosan%20di%20dekat%20IPB.%20Boleh%20tanya-tanya%3F%20%F0%9F%98%8A" target="_blank" class="wa-btn" id="waBtn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chat di WhatsApp
+    </a>
+    <div class="wa-note">*Nomor WA masih contoh — ganti dengan nomor asli kamu</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Kosan Asri</span> · Dramaga, Bogor · Dekat IPB University</p>
+</footer>
+
+<!-- MODAL BOOK -->
+<div class="modal-overlay" id="bookModal">
+  <div class="modal">
+    <div class="modal-title">Tanyakan Kamar Ini</div>
+    <div class="modal-sub">Pesan via WhatsApp langsung ke pemilik kosan</div>
+    <div class="modal-detail" id="modalDetail">
+      <div class="modal-detail-icon" id="modalIcon">🏠</div>
+      <div><div class="modal-detail-name" id="modalRoomName">Kamar 1</div><div class="modal-detail-info" id="modalRoomInfo">Info kamar</div></div>
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Nama Kamu</label>
+      <input type="text" class="modal-input" id="inputName" placeholder="contoh: Budi Santoso">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Pesan (opsional)</label>
+      <input type="text" class="modal-input" id="inputMsg" placeholder="contoh: Kapan bisa survei?">
+    </div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal()">Batal</button>
+      <button class="modal-submit" onclick="submitWA()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Kirim via WA
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA KAMAR ──
+const WA_NUMBER = '6281234567890'; // GANTI DENGAN NOMOR ASLI KAMU
+
+const rooms = [
+  { id:1, name:'Kamar 101', type:'standar', label:'Kamar Standar', icon:'🏠', price:'Rp 600rb', available:true,  features:['Kasur', 'Meja Belajar', 'Lemari', 'Kipas'] },
+  { id:2, name:'Kamar 102', type:'ac',      label:'Kamar AC',      icon:'❄️', price:'Rp 900rb', available:true,  features:['AC', 'Kasur', 'Meja Belajar', 'Lemari'] },
+  { id:3, name:'Kamar 103', type:'km',      label:'Kamar Mandi Dalam', icon:'🚿', price:'Rp 1.1jt', available:false, features:['K.Mandi Dalam', 'Kasur', 'Lemari', 'Cermin'] },
+  { id:4, name:'Kamar 104', type:'ac',      label:'Kamar AC',      icon:'❄️', price:'Rp 900rb', available:false, features:['AC', 'Kasur', 'Meja Belajar', 'Lemari'] },
+  { id:5, name:'Kamar 201', type:'km',      label:'Kamar Mandi Dalam', icon:'🚿', price:'Rp 1.1jt', available:true,  features:['K.Mandi Dalam', 'AC', 'Kasur', 'Meja Belajar'] },
+  { id:6, name:'Kamar 202', type:'standar', label:'Kamar Standar', icon:'🏠', price:'Rp 600rb', available:true,  features:['Kasur', 'Meja Belajar', 'Lemari', 'Jendela Besar'] },
+  { id:7, name:'Kamar 203', type:'ac',      label:'Kamar AC',      icon:'❄️', price:'Rp 900rb', available:false, features:['AC', 'Kasur', 'Lemari', 'TV'] },
+  { id:8, name:'Kamar 204', type:'km',      label:'Kamar Mandi Dalam', icon:'🚿', price:'Rp 1.2jt', available:true,  features:['K.Mandi Dalam', 'AC', 'Kasur', 'Balkon'] },
+];
+
+let currentFilter = 'semua';
+let selectedRoom = null;
+
+function filterRooms(type) {
+  currentFilter = type;
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  renderRooms();
+}
+
+function renderRooms() {
+  const grid = document.getElementById('roomsGrid');
+  let filtered = rooms;
+  if (currentFilter === 'tersedia') filtered = rooms.filter(r => r.available);
+  else if (currentFilter !== 'semua') filtered = rooms.filter(r => r.type === currentFilter);
+
+  grid.innerHTML = filtered.map(r => `
+    <div class="room-card ${r.available ? '' : 'unavailable'}" data-id="${r.id}">
+      <div class="room-img type-${r.type}">
+        <span>${r.icon}</span>
+        <div class="room-status-badge ${r.available ? 'badge-available' : 'badge-unavailable'}">
+          ${r.available ? '✓ Tersedia' : '✗ Terisi'}
+        </div>
+      </div>
+      <div class="room-body">
+        <div class="room-num">${r.name}</div>
+        <div class="room-type">${r.label}</div>
+        <div class="room-features">
+          ${r.features.map(f => `<span class="feat-tag">${f}</span>`).join('')}
+        </div>
+        <div class="room-price">
+          <div>
+            <div class="price-num">${r.price}</div>
+            <div class="price-period">per bulan</div>
+          </div>
+          <button class="room-cta ${r.available ? 'cta-book' : 'cta-full'}"
+            onclick="${r.available ? `openModal(${r.id})` : ''}"
+            ${r.available ? '' : 'disabled'}>
+            ${r.available ? 'Tanya Kosan' : 'Terisi'}
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openModal(id) {
+  selectedRoom = rooms.find(r => r.id === id);
+  document.getElementById('modalIcon').textContent = selectedRoom.icon;
+  document.getElementById('modalRoomName').textContent = selectedRoom.name + ' — ' + selectedRoom.label;
+  document.getElementById('modalRoomInfo').textContent = selectedRoom.price + '/bulan · ' + selectedRoom.features.join(', ');
+  document.getElementById('inputName').value = '';
+  document.getElementById('inputMsg').value = '';
+  document.getElementById('bookModal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('bookModal').classList.remove('open');
+  selectedRoom = null;
+}
+
+function submitWA() {
+  const name = document.getElementById('inputName').value.trim() || 'Calon Penghuni';
+  const msg = document.getElementById('inputMsg').value.trim();
+  const room = selectedRoom;
+  let text = `Halo, saya *${name}* tertarik dengan *${room.name}* (${room.label}) seharga *${room.price}/bulan*.`;
+  if (msg) text += `\n\n${msg}`;
+  text += '\n\nApakah kamar ini masih tersedia? 😊';
+  const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
+  closeModal();
+}
+
+// Close modal on overlay click
+document.getElementById('bookModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// WA main button
+document.getElementById('waBtn').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Halo, saya tertarik dengan kosan di dekat IPB. Boleh tanya-tanya? 😊')}`;
+
+// ── SCROLL ANIMATIONS ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ── INIT ──
+renderRooms();
+</script>
 </body>
 </html>
-```
-
-4. Scroll ke bawah → klik **"Commit changes"**
-
----
-
-## STEP 3 — Balik ke Vercel
-Vercel otomatis detect perubahan di GitHub dan langsung **deploy sendiri!**
-
-Tunggu 1-2 menit → website kamu live di:
-```
-https://kostasyifa.vercel.app
