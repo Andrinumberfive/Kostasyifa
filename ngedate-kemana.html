@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Psikotes Ngedate: Kita Jadinya Kemana?</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff3f0;--card:#ffffff;--ink:#3b1f2b;--soft:#8a6473;--pink:#e8456b;--pink2:#ffd6df;--line:#f3c9d3;--ok:#2f9e6e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#25131b;--card:#33202a;--ink:#ffeef2;--soft:#c9a3b1;--pink:#ff6f8f;--pink2:#4a2a37;--line:#553645}}
+:root[data-theme="dark"]{--bg:#25131b;--card:#33202a;--ink:#ffeef2;--soft:#c9a3b1;--pink:#ff6f8f;--pink2:#4a2a37;--line:#553645}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;min-height:100vh;display:flex;justify-content:center;padding:20px 16px 40px}
+main{width:100%;max-width:560px}
+h1,h2{font-family:'Fraunces',Georgia,serif;line-height:1.15}
+.screen{display:none}.screen.on{display:block}
+.hero{text-align:center;padding:36px 8px 10px}
+.hero .big{font-size:64px}
+.hero h1{font-size:38px;font-weight:800;margin:10px 0 12px}
+.hero p{color:var(--soft);font-size:17px;margin-bottom:26px;line-height:1.5}
+.btn{background:var(--pink);color:#fff;border:0;border-radius:999px;padding:14px 30px;font:700 17px 'Nunito',sans-serif;cursor:pointer;transition:transform .15s}
+.btn:hover{transform:scale(1.04)}.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.btn.ghost{background:transparent;color:var(--pink);border:2px solid var(--pink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:28px}
+.chips span{background:var(--pink2);border-radius:999px;padding:6px 12px;font-size:14px;font-weight:600}
+.bar{height:8px;background:var(--pink2);border-radius:99px;overflow:hidden;margin:6px 0 8px}
+.bar i{display:block;height:100%;background:var(--pink);width:0;transition:width .4s}
+.cnt{font-size:14px;color:var(--soft);font-weight:600}
+.q{font-size:26px;font-weight:600;margin:22px 0 18px}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:10px;font:600 16px/1.4 'Nunito',sans-serif;cursor:pointer;transition:border-color .15s,transform .15s}
+.opt:hover{border-color:var(--pink);transform:translateX(4px)}
+.opt b{background:var(--pink);color:#fff;border-radius:50%;min-width:28px;height:28px;display:grid;place-items:center;font-size:14px}
+.res{text-align:center;padding-top:14px}
+.res .em{font-size:76px}
+.res .lbl{color:var(--soft);font-weight:700}
+.res h2{font-size:36px;margin:6px 0 12px;color:var(--pink)}
+.res p{line-height:1.6;margin-bottom:14px}
+.tip{background:var(--card);border:2px dashed var(--pink);border-radius:16px;padding:14px;text-align:left;font-size:15px;line-height:1.5}
+.sk{background:var(--card);border-radius:16px;padding:16px;margin:20px 0;text-align:left}
+.sk h3{font-size:15px;margin-bottom:10px}
+.row{display:grid;grid-template-columns:118px 1fr 40px;gap:8px;align-items:center;font-size:14px;margin:7px 0}
+.row .t{height:10px;background:var(--pink2);border-radius:99px;overflow:hidden}
+.row .t i{display:block;height:100%;background:var(--pink);border-radius:99px}
+.row.top{font-weight:800}
+.acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<section id="intro" class="screen on">
+  <div class="hero">
+    <div class="big">💘</div>
+    <h1>Ngedate kemana kita?</h1>
+    <p>Jawab 8 pertanyaan singkat ala psikotes. Ikuti kata hati, jangan kebanyakan mikir. Hasilnya satu tempat date yang paling cocok buat kalian.</p>
+    <button class="btn" id="start">Mulai tes</button>
+    <div class="chips"><span>🎬 Bioskop</span><span>🍈 Pasar Jambu 2</span><span>🐱 Cafe Kucing</span><span>☕ Circulo Cafe</span><span>☁️ Awan Menawan</span><span>🏨 Staycation</span><span>🚶 Jalan Surya Kencana</span></div>
+  </div>
+</section>
+
+<section id="quiz" class="screen">
+  <div class="cnt" id="cnt"></div>
+  <div class="bar"><i id="pg"></i></div>
+  <h2 class="q" id="q"></h2>
+  <div id="opts"></div>
+</section>
+
+<section id="result" class="screen"></section>
+</main>
+
+<script>
+const D={
+ bioskop:{e:'🎬',n:'Nonton Bioskop',d:'Kalian tipe yang nyaman menikmati momen berdua tanpa harus banyak bicara. Gelap, dingin, popcorn, dan tangan yang bisa saling genggam. Setelah film selesai, obrolan soal jalan cerita jadi pembuka yang seru.',t:'Pilih kursi pojok belakang, dan sepakati dulu genre film supaya tidak debat di depan kasir.'},
+ pasar:{e:'🍈',n:'Ke Pasar Jambu 2',d:'Kalian tipe petualang jajan yang suka suasana ramai dan spontan. Keliling lapak, coba ini itu, tawar menawar sambil bercanda. Date yang murah, seru, dan penuh cerita.',t:'Datang agak pagi, bawa uang tunai kecil, dan sepakati siapa yang jadi juri jajanan terenak.'},
+ kucing:{e:'🐱',n:'Cafe Kucing',d:'Kalian punya sisi lembut dan hangat. Duduk santai, ngobrol pelan, ditemani kucing yang lewat dan minta dielus. Suasananya bikin canggung cepat mencair.',t:'Cek dulu aturan cafe soal memegang kucing, dan hindari bawa makanan yang bikin kucing penasaran.'},
+ circulo:{e:'☕',n:'Circulo Cafe',d:'Kalian butuh tempat yang enak buat ngobrol panjang dengan kopi dan suasana estetik. Ini date buat saling kenal lebih dalam, dari mimpi sampai hal receh yang bikin ketawa.',t:'Datang sore menjelang malam, pilih meja yang tenang, dan siapkan satu pertanyaan random buat mengawali obrolan.'},
+ awan:{e:'☁️',n:'Awan Menawan',d:'Kalian suka suasana alam yang lapang dan pemandangan yang bikin hati adem. Angin sejuk, langit luas, dan waktu berjalan lebih pelan. Cocok buat date yang romantis dan penuh foto cantik.',t:'Bawa jaket, cek cuaca sebelum berangkat, dan atur jam datang supaya dapat cahaya terbaik.'},
+ stay:{e:'🏨',n:'Staycation ke Apart atau Hotel',d:'Kalian butuh waktu berdua yang tenang tanpa gangguan. Tidak perlu jauh jauh, cukup ganti suasana, pesan makanan, rebahan, dan ngobrol sepuasnya. Date yang paling privat dan santai.',t:'Sepakati dulu budget dan jam check in, siapkan camilan dan playlist, dan pilih tempat dengan review kebersihan yang bagus.'},
+ surya:{e:'🚶',n:'Jalan Surya Kencana',d:'Kalian tipe yang menikmati proses, bukan cuma tujuan. Jalan kaki, lihat kanan kiri, mampir jajan yang menarik, dan ngobrol mengalir begitu saja. Date yang santai tapi berkesan.',t:'Pakai sepatu nyaman, pilih jam yang tidak terlalu panas, dan mampir ke jajanan yang bikin penasaran.'}
+};
+const Q=[
+ {q:'Weekend tiba. Energimu paling cocok dipakai untuk apa?',o:[['Rebahan santai dan menikmati hiburan',{bioskop:2,kucing:1,stay:2}],['Keliling cari jajanan dan lihat keramaian',{pasar:2,surya:1}],['Nongkrong estetik sambil ngobrol lama',{circulo:2,kucing:1}],['Cari udara segar dan pemandangan luas',{awan:2,surya:1}]]},
+ {q:'Suasana date impianmu seperti apa?',o:[['Gelap, adem, dan fokus berdua',{bioskop:2,circulo:1,stay:1}],['Ramai, hidup, dan penuh kejutan',{pasar:2,surya:2}],['Hangat, lucu, dan menenangkan',{kucing:2,circulo:1}],['Sejuk, lapang, dan romantis',{awan:2,surya:1}]]},
+ {q:'Kalau kencan pertama terasa canggung, kamu biasanya...',o:[['Diam dulu, biar ada hal lain yang jadi pusat perhatian',{bioskop:2,kucing:1,stay:1}],['Ajak jalan supaya tubuh ikut bergerak dan santai',{surya:2,pasar:1}],['Lempar pertanyaan seru sampai obrolan hidup',{circulo:2,pasar:1}],['Ajak lihat pemandangan dan biarkan suasana bekerja',{awan:2,kucing:1}]]},
+ {q:'Budget date idealmu?',o:[['Sedang, yang penting worth it',{bioskop:2,circulo:1}],['Hemat tapi kenyang dan puas',{pasar:2,surya:2}],['Fleksibel, asal tempatnya nyaman',{kucing:2,circulo:1}],['Agak longgar demi pengalaman yang berkesan',{awan:2,bioskop:1,stay:2}]]},
+ {q:'Kamu paling sering bilang apa saat jalan bareng?',o:[['"Filmnya bagus nggak ya?"',{bioskop:3}],['"Eh itu apa? Coba beli yuk!"',{pasar:2,surya:2}],['"Lucu banget, foto dulu!"',{kucing:2,awan:1}],['"Ngobrol dulu yuk, jangan buru buru pulang."',{circulo:3,stay:1}]]},
+ {q:'Cuaca favorit buat keluar rumah?',o:[['Mendung, enak di dalam ruangan',{bioskop:2,circulo:1,kucing:1,stay:2}],['Cerah pagi, langsung gas jajan',{pasar:3}],['Sore berangin dan langit oranye',{awan:2,surya:2}],['Hujan gerimis, cari tempat hangat',{kucing:2,circulo:2,stay:1}]]},
+ {q:'Kenangan date seperti apa yang ingin dibawa pulang?',o:[['Cerita film yang dibahas sampai di jalan pulang',{bioskop:3}],['Daftar jajanan yang wajib diulang lagi',{pasar:2,surya:2}],['Foto berdua dengan latar langit dan pemandangan',{awan:3}],['Obrolan dalam yang bikin makin dekat',{circulo:2,kucing:2,stay:1}]]},
+ {q:'Terakhir, seberapa jauh kamu mau melangkah?',o:[['Dekat dan simpel, tinggal duduk',{bioskop:2,circulo:1,kucing:1,stay:2}],['Jalan kaki santai sampai betis pegal',{surya:3,pasar:1}],['Rela jauh demi pemandangan yang worth it',{awan:3}],['Yang penting suasananya cocok, jarak bukan masalah',{kucing:2,circulo:1,pasar:1}]]}
+];
+const $=id=>document.getElementById(id);
+let i=0,S={};
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));window.scrollTo(0,0)}
+function start(){i=0;S={};Object.keys(D).forEach(k=>S[k]=0);show('quiz');render()}
+function render(){
+  const x=Q[i];
+  $('cnt').textContent='Pertanyaan '+(i+1)+' dari '+Q.length;
+  $('pg').style.width=(i/Q.length*100)+'%';
+  $('q').textContent=x.q;
+  $('opts').innerHTML='';
+  x.o.forEach((o,k)=>{
+    const b=document.createElement('button');b.className='opt';
+    b.innerHTML='<b>'+'ABCD'[k]+'</b><span>'+o[0]+'</span>';
+    b.onclick=()=>pick(o[1]);
+    $('opts').appendChild(b);
+  });
+}
+function pick(p){
+  for(const k in p)S[k]+=p[k];
+  i++;
+  i<Q.length?render():finish();
+}
+function finish(){
+  const max=Math.max(...Object.values(S));
+  const tops=Object.keys(S).filter(k=>S[k]===max);
+  const w=tops[Math.floor(Math.random()*tops.length)];
+  const d=D[w];
+  const total=Object.values(S).reduce((a,b)=>a+b,0)||1;
+  const rows=Object.keys(S).sort((a,b)=>S[b]-S[a]).map(k=>{
+    const pc=Math.round(S[k]/total*100);
+    return '<div class="row'+(k===w?' top':'')+'"><span>'+D[k].e+' '+D[k].n+'</span><div class="t"><i style="width:'+Math.max(pc*2.5,3)+'%"></i></div><span>'+pc+'%</span></div>';
+  }).join('');
+  $('result').innerHTML='<div class="res"><div class="em">'+d.e+'</div><div class="lbl">Hasilnya, kalian cocok ngedate ke</div><h2>'+d.n+'</h2><p>'+d.d+'</p><div class="tip">💡 <b>Tips:</b> '+d.t+'</div><div class="sk"><h3>Skor kecocokan semua tempat</h3>'+rows+'</div><div class="acts"><button class="btn" id="again">Ulangi tes</button><button class="btn ghost" id="share">Salin hasil</button></div></div>';
+  $('again').onclick=start;
+  $('share').onclick=()=>{
+    const t='Hasil psikotes ngedate: kita cocok ke '+d.n+' '+d.e;
+    try{navigator.clipboard.writeText(t);$('share').textContent='Tersalin!'}catch(e){$('share').textContent=t}
+  };
+  show('result');
+}
+$('start').onclick=start;
+</script>
+</body>
+</html>
